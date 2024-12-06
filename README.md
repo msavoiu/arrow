@@ -6,7 +6,7 @@ You can follow my development and progress on my [Notion page](https://kokeshidy
 ## About
 As I've gotten older, I've noticed increasing emphasis being placed on romantic and sexual partnerships in a way that kind of relegates friendship to the sidelines.
 
-The aroace community can often feel the impacts of this mindset shift the hardest, as they often don't seek out and enter romantic and sexual relationships with others. This doesn't mean that they don't value friendship and connection with other people. They prefer to do it in a way that's a bit different from the norm—which is what Arrow was made for!
+The aroace community can often feel the impacts of this mindset shift the hardest, as they often don't seek out and enter romantic and sexual relationships with others. Arrow was made for those in the community to meet other aroace individuals in a world where it can be difficult for them to create these connections.
 
 With an Arrow account, you can:
 - 🫂 Match with other users with similar identities, interests, and lifestyles
