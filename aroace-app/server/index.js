@@ -14,7 +14,7 @@ app.use(express.json()); // req.body
 // ROUTES
 
 // JWT route
-app.use("/auth", require("./aroace-app/routes/jwtAuth"));
+app.use("/auth", require("./routes/jwtAuth"));
 
 // // create a user
 // app.post("/register", async(req, res) => {
