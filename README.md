@@ -16,3 +16,6 @@ With an Arrow account, you can:
 
 ### Built with
 [![My Skills](https://skillicons.dev/icons?i=js,nodejs,react,express,vite,bootstrap)](https://skillicons.dev)
+<p align="center">
+  Made with 💜 by Madeline Savoiu
+</p>
