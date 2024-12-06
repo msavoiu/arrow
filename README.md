@@ -10,7 +10,7 @@ The aroace community can often feel the impacts of this mindset shift the hardes
 
 With an Arrow account, you can:
 - 🫂 Match with other users with similar identities, interests, and lifestyles
-- 📍 Find aroaces near you using Bullseye, an interactive map
+- 📍 Find aroaces near you using Bullseye, an interactive user map
 - 💬 Discuss the aro and ace experience with others through message boards
 - 🔔 Get notified about in-person aroace meetups in your area
 
