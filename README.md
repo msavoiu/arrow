@@ -15,4 +15,4 @@ With an Arrow account, you can:
 - 🔔 Get notified about in-person aroace meetups in your area
 
 ### Built with
-[![Next][Next.js]][Next-url] [![React][React.js]][React-url] [![Express][Expressjs.com]][Express-url] [![Bootstrap][Bootstrap.com]][Bootstrap-url] [![Vite][Vite.dev]][Vite-url]
+[![My Skills](https://skillicons.dev/icons?i=js,nodejs,react,express,vite,bootstrap)](https://skillicons.dev)
