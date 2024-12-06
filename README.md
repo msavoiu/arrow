@@ -9,7 +9,10 @@ As I've gotten older, I've noticed increasing emphasis being placed on romantic 
 The aroace community can often feel the impacts of this mindset shift the hardest, as they often don't seek out and enter romantic and sexual relationships with others. This doesn't mean that they don't value friendship and connection with other people. They prefer to do it in a way that's a bit different from the norm—which is what Arrow was made for!
 
 With an Arrow account, you can:
-- Match with other users with similar identities, interests, and lifestyles
-- Find aroaces near you using Bullseye, an interactive map
-- Discuss the aro and ace experience with others through message boards
-- Get notified about in-person aroace meetups in your area
+- 🫂 Match with other users with similar identities, interests, and lifestyles
+- 📍 Find aroaces near you using Bullseye, an interactive map
+- 💬 Discuss the aro and ace experience with others through message boards
+- 🔔 Get notified about in-person aroace meetups in your area
+
+### Built with
+[![Next][Next.js]][Next-url] [![React][React.js]][React-url] [![Express][Expressjs.com]][Express-url] [![Bootstrap][Bootstrap.com]][Bootstrap-url] [![Vite][Vite.dev]][Vite-url]
