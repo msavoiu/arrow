@@ -45,11 +45,19 @@ export async function POST(request) {
             SET last_login = NOW()
             WHERE user_id = $1;`;
             await pool.query(successfulLoginQuery, [loginAttempt.id]);
-            console.log("login successful.");
 
             // 4. give user the jwt
             const token = generateJWT(loginAttempt.id);
-            return NextResponse.json({ token });
+
+            // 5. store the jwt server-side for the user session
+            const response = NextResponse.json(
+                { message: "Authenticated"}
+            );
+
+            response.headers.set("token", `${token}; Path=/; HttpOnly; Secure; SameSite=Strict;`);
+
+            return response;
+
         } else {
             const unsuccessfulLoginQuery = `
             UPDATE user_auth SET failed_attempts = failed_attempts + 1
