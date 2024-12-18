@@ -16,7 +16,7 @@ export default function Nav() {
       <div className="sm:hidden flex relative">
         {isLoggedIn ? (
           <div className="flex">
-            <Image src="../assets/user_icon.svg" width="50" height="50"/>
+            <Image src="../assets/user_icon.svg" width="50" height="50" alt="User icon"/>
           </div>
         ) : (
           <div>You ain't logged in</div>
