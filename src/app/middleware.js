@@ -3,22 +3,16 @@ import jwt from 'jsonwebtoken';
 
 export async function jwtVerify(request) {
     try {
-        const token = request.headers.get("token");
+        const token = request.cookies.get("token");
 
         if (!token) {
-            return NextResponse.json(
-                { valid: false, message: "Unauthorized" },
-                { status: 403 }
-            );
+            return NextResponse.redirect('/auth/login');
         }
 
-        const payload = jwt.verify(token, process.env.JWT_SECRET); // returns an authorization payload that can be used within routes
+        const payload = jwt.verify(token, process.env.JWT_SECRET); // returns decoded payload, in this case, it contains "user_id" (see jwtGenerator.js)
 
         if (!payload) {
-            return NextResponse.json(
-                { valid: false, message: "Unauthorized" },
-                { status: 403 }
-            );
+            return NextResponse.redirect('/auth/login');
         }
 
         return NextResponse.json(
@@ -28,9 +22,6 @@ export async function jwtVerify(request) {
 
     } catch (err) {
         console.error(err.message)
-        return NextResponse.json(
-            { message: "Unauthorized" },
-            { status: 403 }
-        );  
+        return NextResponse.redirect('/auth/login');
     }
 }

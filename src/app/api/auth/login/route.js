@@ -44,17 +44,17 @@ export async function POST(request) {
             UPDATE user_auth
             SET last_login = NOW()
             WHERE user_id = $1;`;
+
             await pool.query(successfulLoginQuery, [loginAttempt.id]);
 
             // 4. give user the jwt
             const token = generateJWT(loginAttempt.id);
 
             // 5. store the jwt server-side for the user session
-            const response = NextResponse.json(
-                { message: "Authenticated"}
-            );
+            const response = NextResponse.redirect('/dashboard', 302);
 
-            response.headers.set("token", `${token}; Path=/; HttpOnly; Secure; SameSite=Strict;`);
+            // 5. store the jwt for the user session
+            response.cookies.set('token', token, { httpOnly: true, secure: true });
 
             return response;
 
@@ -62,12 +62,15 @@ export async function POST(request) {
             const unsuccessfulLoginQuery = `
             UPDATE user_auth SET failed_attempts = failed_attempts + 1
             WHERE user_id = $1;`;
+
             await pool.query(unsuccessfulLoginQuery, [loginAttempt.id]);
+            
             return NextResponse.json(
                 { message: "Username and/or password is incorrect." },
                 { status: 401 }
             );
         }
+
     } catch (err) {
         console.error(err.message);
         return NextResponse.json({ message: "Server Error" }, { status: 500 });
