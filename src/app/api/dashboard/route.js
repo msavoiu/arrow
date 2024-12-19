@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { jwtVerify } from '@/app/middleware.js';
-import Dashboard from '../../dashboard/page.js';
 
 export async function GET(request) {
     try {
@@ -14,7 +13,7 @@ export async function GET(request) {
             );
 
             return NextResponse.json(
-                { valid: true, message: "Login successful."},
+                { valid: true, username },
                 { status: 200 }
             );
 

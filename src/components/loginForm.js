@@ -8,8 +8,11 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
+  const router = useRouter(); // need this line for the push to actually work
+
   const logIn = async (e) => {
     e.preventDefault();
+
     const response = await fetch('/api/auth/login', {
       method: 'POST',
       headers: {
@@ -18,12 +21,14 @@ export default function LoginForm() {
       body: JSON.stringify({ username, password }),
     });
 
-    if (response.ok) {
-        const router = useRouter();
+    const responseData = await response.json(); // need to jsonify the response to get the actual data instead of just metadata about the response
+
+    if (responseData.valid) {
         router.push('/dashboard');
     } else {
-        const errorMessage = await response.json();
-        setErrorMessage(errorMessage.message);
+        // YOU CANNOT use .json() TO PARSE THE RESPONSE MORE THAN ONCE!
+        // const errorMessage = await response.json();
+        setErrorMessage(responseData.message);
     }
   };
 

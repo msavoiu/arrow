@@ -51,7 +51,12 @@ export async function POST(request) {
             const token = generateJWT(loginAttempt.id);
 
             // 5. store the jwt server-side for the user session
-            const response = NextResponse.redirect('/dashboard', 302);
+            const origin = request.nextUrl.origin;
+            // const response = NextResponse.redirect(`${origin}/dashboard`, 302);
+            const response = NextResponse.json(
+                { valid: true, message: "Login successful." },
+                { status: 200 }
+            );
 
             // 5. store the jwt for the user session
             response.cookies.set('token', token, { httpOnly: true, secure: true });
@@ -66,7 +71,7 @@ export async function POST(request) {
             await pool.query(unsuccessfulLoginQuery, [loginAttempt.id]);
             
             return NextResponse.json(
-                { message: "Username and/or password is incorrect." },
+                { valid: false, message: "Username and/or password is incorrect." },
                 { status: 401 }
             );
         }
