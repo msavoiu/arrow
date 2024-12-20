@@ -1,13 +1,12 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 export default async function Dashboard() {
-    const response = await fetch(`${process.env.URL}/api/dashboard`, {   
+    const response = await fetch('/api/dashboard', {   
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         }
     });
+
+    console.log(response);
 
     const data = await response.json();
 
