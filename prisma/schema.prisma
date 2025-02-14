@@ -1,0 +1,53 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model User {
+  id          Int           @id @default(autoincrement())
+  username    String        @unique
+  email       String        @unique
+  password    String
+  createdAt   DateTime      @default(now()) @map(name: "created_at")
+  updatedAt   DateTime      @updatedAt @map(name: "updated_at")
+  Profile     Profile?
+
+  @@map(name: "users")
+}
+
+// https://www.prisma.io/docs/orm/prisma-schema/data-model/relations
+model Profile {
+  id          Int     @id @default(autoincrement())
+  displayName String?
+  bio         String?
+  tags        TagsOnProfiles[]
+  user        User?   @relation(fields: [userId], references: [id])
+  userId      Int?    @unique
+
+  @@map(name: "profiles")
+}
+
+model Tag {
+  id          Int           @id @default(autoincrement())
+  tagName     String
+  profiles    TagsOnProfiles[]
+
+  @@map(name: "tags")
+}
+
+model TagsOnProfiles {
+  id           Int   @id @default(autoincrement())
+  tag          Tag   @relation(fields: [tagId], references: [id])
+  tagId        Int
+  profile      Profile  @relation(fields: [profileId], references: [id])
+  profileId    Int
+
+  @@map(name: "tag_junction")
+}
