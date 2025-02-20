@@ -1,15 +1,16 @@
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
-import jwt from "jsonwebtoken"
-import prisma from "@/lib/prisma"
-import { NextRequest, NextResponse } from "next/server"
-import { cookies } from "next/headers"
+import jwt from "jsonwebtoken";
+import prisma from "@/lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 dotenv.config();
 
 export async function POST(req: NextRequest) {
     try {
-        const { username, password } = await req.json(); // do we need to type the destructured constants?
+        const body = await req.json();
+        const { username, password } = body;
         const cookieStore = await cookies();
 
         const user = await prisma.user.findUnique({
@@ -22,7 +23,9 @@ export async function POST(req: NextRequest) {
             }
         });
 
-        if (!user) { // would userId be null if the user doesn't exist?
+        console.log(user);
+
+        if (user === null) { // would userId be null if the user doesn't exist?
             return NextResponse.json(
                 {
                     ok: false,
