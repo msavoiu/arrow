@@ -1,9 +1,9 @@
-import bcrypt from "bcryptjs";
-import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
-import prisma from "@/lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import bcrypt from "bcryptjs"
+import dotenv from "dotenv"
+import jwt from "jsonwebtoken"
+import prisma from "@/lib/prisma"
+import { NextRequest, NextResponse } from "next/server"
+import { cookies } from "next/headers"
 
 dotenv.config();
 
