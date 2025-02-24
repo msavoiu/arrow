@@ -8,9 +8,10 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // takes middleware by default?
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
     try {
         const userId = Number(request.headers.get("user_id"));
+        console.log(userId);
 
         const user = await prisma.user.findUnique({
             where: {
@@ -62,7 +63,7 @@ export async function POST(request: NextRequest) {
                 message: "Profile data retrieved",
                 data: {
                     username: user.username,
-                    display_name: userProfile.displayName,
+                    displayName: userProfile.displayName,
                     bio: userProfile.bio,
                     tags: tags
                 },
