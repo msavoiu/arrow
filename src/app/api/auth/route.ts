@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     
         if (!token) {
             return NextResponse.json(
-                { ok: false, message: "Accesxxs Denied: No token provided" },
+                { ok: false, message: "Access Denied: No token provided" },
                 { status: 401 }
             );
         }
