@@ -1,9 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
-import { redirect } from "next/navigation";
-import { error } from "console";
-import { IconPlayerStopFilled } from "@tabler/icons-react";
+import isAuth from "../components/isAuth";
 
 interface ProfileData {
     username: string;
@@ -12,8 +10,8 @@ interface ProfileData {
     tags: string[]; // array of strings!
 }
 
-export default function LoginForm() {
-    const [profileData, setProfileData] = useState<ProfileData | null>(null);
+function Profile({ userId }: { userId: number }) {
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
@@ -23,11 +21,12 @@ export default function LoginForm() {
                 const response = await fetch(
                     "/api/profile/view",
                     {
-                        method: "GET",
+                        method: "POST",
                         headers: {
                             "Content-type": "application/json"
                         },
-                        credentials: "include", // need to send the JWT!
+                        body: JSON.stringify({ userId }), // prop from the protected component route
+                        credentials: "include"
                     }
                 );
                 const res = await response.json();
@@ -63,3 +62,5 @@ export default function LoginForm() {
         </>
     );
 };
+
+export default isAuth(Profile); // protected route wrapper

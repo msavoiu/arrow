@@ -1,17 +1,14 @@
-import dotenv from "dotenv";
-import jwt from "jsonwebtoken"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-import { cookies } from "next/headers"
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 // takes middleware by default?
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
     try {
-        const userId = Number(request.headers.get("user_id"));
-        console.log(userId);
+        const body = await request.json();
+        const userId: number = body.userId;
 
         const user = await prisma.user.findUnique({
             where: {

@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import * as jose from "jose";
+import { SignJWT } from "jose";
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
@@ -8,6 +8,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { username, password } = body;
+
     const cookieStore = await cookies();
 
     const user = await prisma.user.findUnique({
@@ -44,22 +45,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    console.log(process.env.JWT_SECRET);
-
     // Generate JWT using jose
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET as string);
-    const key = await jose.importJWK(
-      { kty: "oct", k: Buffer.from(secret).toString("base64") },
-      "HS256"
-    );
+    // https://stackoverflow.com/questions/71851464/nextjs-build-failing-because-of-jsonwebtoken-in-middleware-ts
+    const key = new TextEncoder().encode(process.env.JWT_SECRET);
 
-    const token = await new jose.SignJWT({ userId: user.id })
+    const token = await new SignJWT({ userId: user.id })
       .setProtectedHeader({ alg: "HS256" })
       .setIssuedAt()
       .setExpirationTime("1800s") // 30 minutes
       .sign(key);
 
-    console.log(token);
+    // console.log(token);
 
     // Set cookies in response
     cookieStore.set("auth_token", token, {
@@ -72,7 +68,7 @@ export async function POST(req: NextRequest) {
       {
         ok: true,
         message: "Login successful.",
-        redirect: "/",
+        redirect: "/profile"
       },
       { status: 200 }
     );
