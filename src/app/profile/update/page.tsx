@@ -1,46 +1,50 @@
 "use client"
 
 import React, { useState } from "react";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import isAuth from "../../components/isAuth"; // how to get absolute path with @?
+import { Router } from "next/router";
 
 function UpdateProfile({ userId }: { userId: number }) {
-  const [displayName, setDisplayName] = useState("");
+    const router = useRouter();
 
-  const onSubmitDisplayName = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-        const res = await fetch(
-            "/api/profile/update/displayname",
-            {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify(
-                  {
-                    userId,
-                    displayName
-                  }
-                  ),
-                credentials: "include",
+    const [displayName, setDisplayName] = useState("");
+
+    const onSubmitDisplayName = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        try {
+            const res = await fetch(
+                "/api/profile/update/displayname",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: JSON.stringify(
+                    {
+                        userId,
+                        displayName
+                    }
+                    ),
+                    credentials: "include",
+                }
+            );
+
+            const response = await res.json();
+
+            if (response.ok) {
+                alert(response.message);
+                router.push(response.redirect);
+            } else {
+                alert(response.message);
             }
-        );
 
-        const response = await res.json();
-
-        if (response.ok) {
-            alert(response.message);
-            redirect(response.redirect);
-        } else {
-            alert(response.message);
+        } catch (error: any) {
+            console.error(error.message);
+            alert("An error occured. Please try again later.");
         }
-
-    } catch (error: any) {
-        console.error(error.message);
-        alert("An error occured. Please try again later.");
-    }
-  };
+    };
 
   return (
     <>

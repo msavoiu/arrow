@@ -35,7 +35,8 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(
             {
                 ok: true,
-                message: "Profile updated"
+                message: "Profile updated",
+                redirect: "/profile"
             },
         );
 
