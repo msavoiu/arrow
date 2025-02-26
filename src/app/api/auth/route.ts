@@ -8,9 +8,9 @@ export async function GET(request: NextRequest) {
     try {
         const cookieStore = await cookies();
         const token = cookieStore.has("auth_token") ? cookieStore.get("auth_token") : null;
-    
+
         console.log("token:", token);
-    
+
         if (!token) {
             return NextResponse.json(
                 { ok: false, message: "Access Denied: No token provided" },
