@@ -1,45 +1,60 @@
 "use client"
 
 import React, { useState } from "react";
-// import { redirect } from "next/navigation";
-import { useRouter } from "next/navigation";
 import isAuth from "../../components/isAuth"; // how to get absolute path with @?
-import { Router } from "next/router";
 
 function UpdateProfile({ userId }: { userId: number }) {
-    const router = useRouter();
-
     const [displayName, setDisplayName] = useState("");
+    const [bio, setBio] = useState("");
 
-    const onSubmitDisplayName = async (event: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            const res = await fetch(
-                "/api/profile/update/displayname",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-type": "application/json"
-                    },
-                    body: JSON.stringify(
+            if (displayName) {
+                const dnameRes = await fetch(
+                    "/api/profile/update/displayname",
                     {
-                        userId,
-                        displayName
+                        method: "POST",
+                        headers: {
+                            "Content-type": "application/json"
+                        },
+                        body: JSON.stringify(
+                        {
+                            userId,
+                            displayName
+                        }
+                        ),
+                        credentials: "include",
                     }
-                    ),
-                    credentials: "include",
-                }
-            );
-
-            const response = await res.json();
-
-            if (response.ok) {
-                alert(response.message);
-                router.push(response.redirect);
-            } else {
-                alert(response.message);
+                );
+    
+                const dnameResponse = await dnameRes.json();
+    
+                alert(dnameResponse.message);
             }
 
+            if (bio) {
+                const bioRes = await fetch(
+                    "/api/profile/update/bio",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-type": "application/json"
+                        },
+                        body: JSON.stringify(
+                        {
+                            userId,
+                            bio
+                        }
+                        ),
+                        credentials: "include",
+                    }
+                );
+    
+                const bioResponse = await bioRes.json();
+    
+                alert(bioResponse.message);
+            }
         } catch (error: any) {
             console.error(error.message);
             alert("An error occured. Please try again later.");
@@ -49,12 +64,15 @@ function UpdateProfile({ userId }: { userId: number }) {
   return (
     <>
         <h1>Update Profile</h1>
-        <form onSubmit={onSubmitDisplayName}>
+        <form onSubmit={onSubmit}>
             <input type="text"
                 placeholder="Display name"
                 value={displayName}
-                onChange={e => setDisplayName(e.target.value)}
-                required/>
+                onChange={e => setDisplayName(e.target.value)}/>
+            <input type="text"
+                placeholder="Bio"
+                value={bio}
+                onChange={e => setBio(e.target.value)}/>
             <button type="submit">Update</button>
         </form>
     </>

@@ -8,23 +8,23 @@ const prisma = new PrismaClient();
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { userId, displayName }: {userId: number, displayName: string } = body;
+        const { userId, bio }: {userId: number, bio: string } = body;
 
         // https://www.prisma.io/docs/orm/reference/prisma-client-reference#update
-        const updateDisplayName = await prisma.profile.update({
+        const updateBio = await prisma.profile.update({
             where: {
                 id: userId
             },
             data: {
-                displayName: displayName
+                bio: bio
             }
         });
 
-        if (!updateDisplayName) { // empty objects are truthy, so this check may not work
+        if (!updateBio) { // empty objects are truthy, so this check may not work
             return NextResponse.json(
                 {
                     ok: false,
-                    message: "Could not update display name"
+                    message: "Could not update bio"
                 },
                 { status: 404 }
             );
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(
             {
                 ok: true,
-                message: "Display name updated",
+                message: "Bio updated",
                 redirect: "/profile"
             },
         );
