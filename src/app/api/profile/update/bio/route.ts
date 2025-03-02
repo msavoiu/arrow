@@ -34,8 +34,10 @@ export async function POST(request: NextRequest) {
             {
                 ok: true,
                 message: "Bio updated",
-                redirect: "/profile"
+                redirect: "/profile",
+                bio
             },
+            { status: 200 }
         );
 
     } catch (error) {
