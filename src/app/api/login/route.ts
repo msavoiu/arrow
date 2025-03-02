@@ -55,8 +55,6 @@ export async function POST(req: NextRequest) {
       .setExpirationTime("1800s") // 30 minutes
       .sign(key);
 
-    // console.log(token);
-
     // Set cookies in response
     cookieStore.set("auth_token", token, {
       httpOnly: true,
