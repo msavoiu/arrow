@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react";
-import isAuth from "../../components/isAuth"; // how to get absolute path with @?
+import isAuth from "@/app/components/isAuth";
 
 function UpdateProfile({ userId }: { userId: number }) {
     const [displayName, setDisplayName] = useState("");
@@ -9,6 +9,7 @@ function UpdateProfile({ userId }: { userId: number }) {
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
         try {
             if (displayName) {
                 const dnameRes = await fetch(
@@ -18,19 +19,19 @@ function UpdateProfile({ userId }: { userId: number }) {
                         headers: {
                             "Content-type": "application/json"
                         },
-                        body: JSON.stringify(
-                        {
+                        body: JSON.stringify({
                             userId,
                             displayName
-                        }
-                        ),
+                        }),
                         credentials: "include",
                     }
                 );
     
                 const dnameResponse = await dnameRes.json();
     
-                alert(dnameResponse.message);
+                if (!dnameResponse.ok) {
+                    alert(dnameResponse.message);
+                }
             }
 
             if (bio) {
@@ -41,41 +42,45 @@ function UpdateProfile({ userId }: { userId: number }) {
                         headers: {
                             "Content-type": "application/json"
                         },
-                        body: JSON.stringify(
-                        {
-                            userId,
-                            bio
-                        }
-                        ),
+                        body: JSON.stringify({
+                                userId,
+                                bio
+                        }),
                         credentials: "include",
                     }
                 );
     
                 const bioResponse = await bioRes.json();
     
-                alert(bioResponse.message);
+                if (!bioResponse.ok) {
+                    alert(bioResponse.message);
+                }
             }
+
+            alert("Profile updated.");
+
         } catch (error: any) {
             console.error(error.message);
             alert("An error occured. Please try again later.");
         }
     };
 
-  return (
-    <>
-        <h1>Update Profile</h1>
-        <form onSubmit={onSubmit}>
-            <input type="text"
-                placeholder="Display name"
-                value={displayName}
-                onChange={e => setDisplayName(e.target.value)}/>
-            <input type="text"
-                placeholder="Bio"
-                value={bio}
-                onChange={e => setBio(e.target.value)}/>
-            <button type="submit">Update</button>
-        </form>
-    </>
+    return (
+        <>
+            <h1>Update Profile</h1>
+
+            <form onSubmit={onSubmit}>
+                <input type="text"
+                    placeholder="Display name"
+                    value={displayName}
+                    onChange={e => setDisplayName(e.target.value)}/>
+                <input type="text"
+                    placeholder="Bio"
+                    value={bio}
+                    onChange={e => setBio(e.target.value)}/>
+                <button type="submit">Update</button>
+            </form>
+        </>
   );
 }
 
