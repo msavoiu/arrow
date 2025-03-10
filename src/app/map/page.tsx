@@ -2,7 +2,22 @@
 
 import React, { useState, useEffect } from "react";
 import isAuth from "../components/isAuth";
-import { APIProvider, Map, MapCameraChangedEvent } from "@vis.gl/react-google-maps";
+import {
+    APIProvider,
+    Map,
+    AdvancedMarker,
+    MapCameraChangedEvent,
+    Pin
+} from "@vis.gl/react-google-maps";
+
+type Poi = {
+    key: string,
+    location: google.maps.LatLngLiteral
+};
+
+const locations: Poi[] = [
+    { key: "CSUF", location: { lat: 33.88295284106687, lng: -117.88501752543223 }}
+];
 
 function MapPage({ userId }: { userId: number }) {
     console.log(process.env.NEXT_PUBLIC_MAPS_API_KEY, process.env.NEXT_PUBLIC_MAP_ID);
@@ -17,10 +32,25 @@ function MapPage({ userId }: { userId: number }) {
                     onCameraChanged={ (ev: MapCameraChangedEvent) =>
                         console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)
                     }>
+                        <PoiMarkers pois={locations}/>
                 </Map> 
             </APIProvider>
         </>
     );
 };
+
+const PoiMarkers = (props: {pois: Poi[]}) => {
+    return (
+      <>
+        {props.pois.map( (poi: Poi) => (
+          <AdvancedMarker
+            key={poi.key}
+            position={poi.location}>
+          <Pin background={'#FBBC04'} glyphColor={'#000'} borderColor={'#000'} />
+          </AdvancedMarker>
+        ))}
+      </>
+    );
+  };
 
 export default isAuth(MapPage);
