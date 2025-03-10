@@ -1,5 +1,3 @@
-import bcrypt from "bcryptjs";
-import { SignJWT } from "jose";
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";

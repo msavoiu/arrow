@@ -21,7 +21,7 @@ function Matches({ userId }: { userId: number }) {
         const fetchProfileData = async () => {
             try {
                 const response = await fetch(
-                    "/api/user/getmatches",
+                    "/api/match",
                     {
                         method: "POST",
                         headers: {
