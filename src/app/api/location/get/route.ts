@@ -1,1 +1,0 @@
-// GET and return { userid, lat, lng } in the json

@@ -21,8 +21,6 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    console.log(user!.id);
-
     if (user === null) {
       return NextResponse.json(
         {

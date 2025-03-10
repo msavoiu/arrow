@@ -11,17 +11,24 @@ import {
 } from "@vis.gl/react-google-maps";
 
 type Poi = {
-    id: number, // user ID
+    userId: number, // user ID
     location: google.maps.LatLngLiteral
 };
 
+type LocationData = {
+    userId: number;
+    address: string;
+    lat: number;
+    lng: number;
+  };
+
 // for test
-const locations: Poi[] = [
-    { id: 1, location: { lat: 33.88295284106687, lng: -117.88501752543223 }}
-];
+// const locations: Poi[] = [
+//     { id: 1, location: { lat: 33.88295284106687, lng: -117.88501752543223 } }
+// ];
 
 function MapPage({ userId }: { userId: number }) {
-      const [markerData, setMarkerData] = useState<Poi | null>(null);
+      const [markerData, setMarkerData] = useState<LocationData[] | null>(null);
       const [isLoading, setIsLoading] = useState(true);
       const [hasError, setHasError] = useState(false);
 
@@ -29,7 +36,7 @@ function MapPage({ userId }: { userId: number }) {
         const fetchProfileData = async () => {
             try {
                 const response = await fetch(
-                    "/api/location/get",
+                    "/api/map/markers",
                     {
                         method: "POST",
                         headers: {
@@ -56,7 +63,13 @@ function MapPage({ userId }: { userId: number }) {
         fetchProfileData();
     }, []);
 
-    console.log(process.env.NEXT_PUBLIC_MAPS_API_KEY, process.env.NEXT_PUBLIC_MAP_ID);
+    if (isLoading) return <p>Loading...</p>;
+    if (hasError) return <p>An error has occurred. Please try again later.</p>
+
+    const locations: Poi[] = markerData!.map((loc) => ( // use parentheses to wrap around object literals
+        { userId: loc.userId, location: { lat: loc.lat, lng: loc.lng } }
+    ));
+
     return (
         <>
             <APIProvider apiKey={process.env.NEXT_PUBLIC_MAPS_API_KEY as string} onLoad={() => console.log('Maps API has loaded.')}>
@@ -80,7 +93,7 @@ const PoiMarkers = (props: {pois: Poi[]}) => {
       <>
         {props.pois.map( (poi: Poi) => (
           <AdvancedMarker
-            key={poi.key}
+            key={poi.userId}
             position={poi.location}>
           <Pin background={'#FBBC04'} glyphColor={'#000'} borderColor={'#000'} />
           </AdvancedMarker>
