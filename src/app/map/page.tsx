@@ -11,7 +11,7 @@ import {
 } from "@vis.gl/react-google-maps";
 
 type Poi = {
-    key: string,
+    key: string, // user ID
     location: google.maps.LatLngLiteral
 };
 
@@ -20,6 +20,41 @@ const locations: Poi[] = [
 ];
 
 function MapPage({ userId }: { userId: number }) {
+      const [markerData, setMarkerData] = useState<Poi | null>(null);
+      const [isLoading, setIsLoading] = useState(true);
+      const [hasError, setHasError] = useState(false);
+
+    useEffect(() => {
+        const fetchProfileData = async () => {
+            try {
+                const response = await fetch(
+                    "/api/location/get",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-type": "application/json"
+                        },
+                        body: JSON.stringify({ userId }),
+                        credentials: "include"
+                    }
+                );
+                const res = await response.json();
+
+                if (!res.ok) {
+                    setHasError(true);
+                } else {
+                    setMarkerData(res.data);
+                }
+            } catch (error) {
+                setHasError(true);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchProfileData();
+    }, []);
+
     console.log(process.env.NEXT_PUBLIC_MAPS_API_KEY, process.env.NEXT_PUBLIC_MAP_ID);
     return (
         <>
