@@ -11,12 +11,13 @@ import {
 } from "@vis.gl/react-google-maps";
 
 type Poi = {
-    key: string, // user ID
+    id: number, // user ID
     location: google.maps.LatLngLiteral
 };
 
+// for test
 const locations: Poi[] = [
-    { key: "CSUF", location: { lat: 33.88295284106687, lng: -117.88501752543223 }}
+    { id: 1, location: { lat: 33.88295284106687, lng: -117.88501752543223 }}
 ];
 
 function MapPage({ userId }: { userId: number }) {
