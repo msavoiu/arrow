@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import isAuth from "../components/isAuth";
 
@@ -7,7 +8,7 @@ interface ProfileData {
     username: string;
     displayName: string;
     bio: string;
-    tags: string[]; // array of strings!
+    tags: string[];
 }
 
 function Profile({ userId }: { userId: number }) {
@@ -56,9 +57,11 @@ function Profile({ userId }: { userId: number }) {
             <h1>{profileData!.displayName}</h1> 
             <p>@{profileData!.username}</p>
             <p>{profileData!.bio}</p>
+            {/* type assertion with ! tells the compiler that profileData will not be null */}
 
             <ol>{tagList}</ol>
-            {/* type assertion with ! tells the compiler that profileData will not be null */}
+        
+            <Link href="/profile/update">Edit Profile</Link>
         </>
     );
 };
