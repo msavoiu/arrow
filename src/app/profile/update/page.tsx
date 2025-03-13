@@ -71,8 +71,6 @@ function UpdateProfile({ userId }: { userId: number }) {
                     onChange={(e) => setBio(e.target.value)}
                 />
 
-                {/* <LocationSearch/> */}
-
                 <input
                     type="text"
                     placeholder="Search for your location"

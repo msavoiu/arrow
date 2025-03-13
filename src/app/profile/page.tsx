@@ -50,7 +50,7 @@ function Profile({ userId }: { userId: number }) {
     if (isLoading) return <p>Loading...</p>;
     if (hasError) return <p>An error has occurred. Please try again later.</p>
 
-    const tagList = profileData!.tags.map(tag => <li>{tag}</li>);
+    const tagList = profileData!.tags.map((tag, index) => <li key={index}>{tag}</li>);
 
     return (
         <>
@@ -59,7 +59,7 @@ function Profile({ userId }: { userId: number }) {
             <p>{profileData!.bio}</p>
             {/* type assertion with ! tells the compiler that profileData will not be null */}
 
-            <ol>{tagList}</ol>
+            <ul>{tagList}</ul>
         
             <Link href="/profile/update">Edit Profile</Link>
         </>

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 type TagObj = {
     id: number;
@@ -14,14 +15,20 @@ function ProfileCard({ displayName, username, bio, tags }: { displayName: string
         <p>{bio}</p>
 
         <ul>
-            {tags.map((tagObj => (
-                <li>{tagObj.tag.tagName}</li>
+            {tags.map(((tagObj, index) => (
+                <li key={index}>{tagObj.tag.tagName}</li>
             )))}
         </ul>
         <div>
-            <Link href={"https://instagram.com/" + username}>Instagram</Link>
-            <Link href={"https://twitter.com/" + username}>Twitter</Link>
-            <Link href={"https://" + username + ".tumblr.com/"}>Tumblr</Link>
+            <Link href={"https://instagram.com/" + username}>
+                <Image src="/instagram.png" width={30} height={30} alt="Instagram icon"/>
+            </Link>
+            <Link href={"https://x.com/" + username}>
+                <Image src="/x.png" width={30} height={30} alt="X icon"/>
+            </Link>
+            <Link href={"https://" + username + ".tumblr.com/"}>
+                <Image src="/tumblr.png" width={30} height={30} alt="Tumblr icon"/>
+            </Link>
         </div>
     </div>
   );

@@ -52,8 +52,8 @@ function Matches({ userId }: { userId: number }) {
     if (isLoading) return <p>Loading...</p>;
     if (hasError) return <p>An error has occurred. Please try again later.</p>
 
-    const profileCards = matches!.map(match =>
-        <ProfileCard
+    const profileCards = matches!.map((match, index) =>
+        <ProfileCard key={index}
             displayName={match.displayName}
             username={match.user.username}
             bio={match.bio}

@@ -52,7 +52,9 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const tags = userProfile.tags.map(tagOnProfile => tagOnProfile.tag.tagName); // Extracting just the tag names
+        const tags = userProfile.tags.map(tagOnProfile => {
+            tagOnProfile.tag.tagName
+        }); // Extracting just the tag names
 
         return NextResponse.json(
             {
