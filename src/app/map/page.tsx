@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
-import isAuth from "../components/isAuth";
+// import isAuth from "../components/isAuth";
 import {
     APIProvider,
     Map,
@@ -22,7 +22,7 @@ type LocationData = {
     lng: number;
   };
 
-function MapPage() {
+export default function MapPage() {
       const [markerData, setMarkerData] = useState<LocationData[] | null>(null);
       const [isLoading, setIsLoading] = useState(true);
       const [hasError, setHasError] = useState(false);
@@ -96,5 +96,3 @@ const PoiMarkers = (props: {pois: Poi[]}) => {
       </>
     );
   };
-
-export default isAuth(MapPage);
