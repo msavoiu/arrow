@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import isAuth from "../components/isAuth";
+import ProfileCard from "../components/profileCard";
 
 type ProfileData = {
     id: number;
@@ -52,17 +53,24 @@ function Matches({ userId }: { userId: number }) {
     if (hasError) return <p>An error has occurred. Please try again later.</p>
 
     const profileCards = matches!.map(match =>
-        <>
-            <h2>{match.displayName}</h2>
-            <h3>@{match.user.username}</h3>
-            <p>{match.bio}</p>
+        <ProfileCard
+            displayName={match.displayName}
+            username={match.user.username}
+            bio={match.bio}
+            tags={match.tags}
+        />
 
-            <ul>
-                {match.tags.map((tagObj => (
-                    <li>{tagObj.tag.tagName}</li>
-                )))}
-            </ul>
-        </>
+        // <>
+        //     <h2>{match.displayName}</h2>
+        //     <h3>@{match.user.username}</h3>
+        //     <p>{match.bio}</p>
+
+        //     <ul>
+        //         {match.tags.map((tagObj => (
+        //             <li>{tagObj.tag.tagName}</li>
+        //         )))}
+        //     </ul>
+        // </>
     );
 
     return (
