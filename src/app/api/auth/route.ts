@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 import { cookies } from "next/headers";
 import * as jose from "jose";
 import { JWTVerifyResult } from "jose";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     try {
         const cookieStore = await cookies();
         const token = cookieStore.has("auth_token") ? cookieStore.get("auth_token") : null;
