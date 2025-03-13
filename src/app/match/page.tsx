@@ -48,7 +48,7 @@ function Matches({ userId }: { userId: number }) {
         };
 
         fetchProfileData();
-    }, []);
+    }, [userId]);
 
     if (isLoading) return <p>Loading...</p>;
     if (hasError) return <p>An error has occurred. Please try again later.</p>
