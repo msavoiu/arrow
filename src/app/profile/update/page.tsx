@@ -2,12 +2,12 @@
 
 import React, { useState } from "react";
 import isAuth from "@/app/components/isAuth";
-import LocationSearch from "@/app/components/locationSearch";
+// import LocationSearch from "@/app/components/locationSearch";
 
 function UpdateProfile({ userId }: { userId: number }) {
     const [displayName, setDisplayName] = useState("");
     const [bio, setBio] = useState("");
-    const [location, setLocation] = useState<{ address: string; lat: number; lng: number } | null>(null);
+    // const [location, setLocation] = useState<{ address: string; lat: number; lng: number } | null>(null);
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -31,19 +31,19 @@ function UpdateProfile({ userId }: { userId: number }) {
                 });
             }
 
-            if (location) {
-                await fetch("/api/profile/update/location", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        userId,
-                        address: location.address,
-                        lat: location.lat,
-                        lng: location.lng,
-                    }),
-                    credentials: "include",
-                });
-            }
+            // if (location) {
+            //     await fetch("/api/profile/update/location", {
+            //         method: "POST",
+            //         headers: { "Content-Type": "application/json" },
+            //         body: JSON.stringify({
+            //             userId,
+            //             address: location.address,
+            //             lat: location.lat,
+            //             lng: location.lng,
+            //         }),
+            //         credentials: "include",
+            //     });
+            // }
 
             alert("Profile updated.");
 

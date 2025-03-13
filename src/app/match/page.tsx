@@ -39,8 +39,9 @@ function Matches({ userId }: { userId: number }) {
                 } else {
                     setMatches(res.data);
                 }
-            } catch (error) {
+            } catch (error: any) {
                 setHasError(true);
+                console.error(error.message);
             } finally {
                 setIsLoading(false);
             }

@@ -12,7 +12,7 @@ export default function LocationSearch() {
     })
 
     const handleOnPlacesChanged = () => {
-        let address = inputRef.current?.getPlaces();
+        const address = inputRef.current?.getPlaces();
         console.log("address:", address);
     }
 

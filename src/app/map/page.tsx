@@ -22,12 +22,7 @@ type LocationData = {
     lng: number;
   };
 
-// for test
-// const locations: Poi[] = [
-//     { id: 1, location: { lat: 33.88295284106687, lng: -117.88501752543223 } }
-// ];
-
-function MapPage({ userId }: { userId: number }) {
+function MapPage() {
       const [markerData, setMarkerData] = useState<LocationData[] | null>(null);
       const [isLoading, setIsLoading] = useState(true);
       const [hasError, setHasError] = useState(false);
@@ -38,11 +33,10 @@ function MapPage({ userId }: { userId: number }) {
                 const response = await fetch(
                     "/api/map/markers",
                     {
-                        method: "POST",
+                        method: "GET",
                         headers: {
                             "Content-type": "application/json"
                         },
-                        body: JSON.stringify({ userId }),
                         credentials: "include"
                     }
                 );
@@ -53,8 +47,9 @@ function MapPage({ userId }: { userId: number }) {
                 } else {
                     setMarkerData(res.data);
                 }
-            } catch (error) {
+            } catch (error: any) {
                 setHasError(true);
+                console.log(error.message);
             } finally {
                 setIsLoading(false);
             }

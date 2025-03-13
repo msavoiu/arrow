@@ -37,8 +37,9 @@ function Profile({ userId }: { userId: number }) {
                 } else {
                     setProfileData(res.data);
                 }
-            } catch (error) {
+            } catch (error: any) {
                 setHasError(true);
+                console.error(error.message);
             } finally {
                 setIsLoading(false);
             }

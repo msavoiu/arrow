@@ -1,13 +1,10 @@
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const { userId }: { userId: number } = body;
-
-        const cookieStore = await cookies();
 
         const userProfile = await prisma.profile.findUnique({
             where: {
