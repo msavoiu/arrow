@@ -2,12 +2,18 @@
 
 import React, { useState } from "react";
 import isAuth from "@/app/components/isAuth";
-// import LocationSearch from "@/app/components/locationSearch";
+import LocationSearch from "@/app/components/locationSearch";
+
+type LocationData = {
+    address: string;
+    lat: number;
+    lng: number;
+};
 
 function UpdateProfile({ userId }: { userId: number }) {
     const [displayName, setDisplayName] = useState("");
     const [bio, setBio] = useState("");
-    // const [location, setLocation] = useState<{ address: string; lat: number; lng: number } | null>(null);
+    // const [location, setLocation] = useState<LocationData | null>(null);
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -71,12 +77,14 @@ function UpdateProfile({ userId }: { userId: number }) {
                     onChange={(e) => setBio(e.target.value)}
                 />
 
-                <input
+                {/* <input
                     type="text"
                     placeholder="Search for your location"
                     disabled
                 />
-                <p>Notice: Google Places API is currently experiencing some issues. Location updating for users is temporarily disabled.</p>
+                <p>Notice: Google Places API is currently experiencing some issues. Location updating for users is temporarily disabled.</p> */}
+
+                <LocationSearch/>
 
                 <button type="submit">Update</button>
             </form>

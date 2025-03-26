@@ -20,7 +20,7 @@ type LocationData = {
     address: string;
     lat: number;
     lng: number;
-  };
+};
 
 export default function MapPage() {
       const [markerData, setMarkerData] = useState<LocationData[] | null>(null);
